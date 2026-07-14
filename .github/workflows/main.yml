@@ -25,13 +25,22 @@ on:
       environment:
         description: 'Environment to run tests againts'
         type: environment
-        required: true
+        required: false
 
 jobs:
   MyFirstJob:
     runs-on: ubuntu-latest
 
     steps:
+
+      - run: |
+          echo "Homedrive: ${{ inputs.homedrive }}"
+          echo "Log Level: ${{ inputs.LogLevel }}"
+          echo "Tag source: ${{ inputs.tag }}"
+          echo "Environment: ${{ inputs.environment }}"
+        name: Workflow Inputs
+        if: ${{ github.event_name == 'workflow_dispatch' }}
+        
       - run: echo "Hello World!"
 
       - name: Checkout
